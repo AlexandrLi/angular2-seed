@@ -1,18 +1,20 @@
 import {Component} from "angular2/core";
 import {AuthorService} from "./author.service";
+import {LikeComponent} from "./like.component";
+import {FavoriteComponent} from "./favorite.component";
 
 @Component({
     selector: 'authors',
     template: `
-<h2>Authors</h2>
+<h2>Authors<favorite [is-favorite]="true" (change)="onFavoriteChange($event)"></favorite></h2>
 {{title}}
 <ul>
     <li *ngFor="#author of authors">
-        {{author}}
+        {{author}} <like [isLiked]="false" [totalLikes]="2"></like>
     </li>
 </ul>`,
-    providers: [AuthorService]
-
+    providers: [AuthorService],
+    directives: [FavoriteComponent,LikeComponent]
 })
 export class AuthorsComponent {
     authors: string[];
@@ -20,5 +22,9 @@ export class AuthorsComponent {
 
     constructor(authorService: AuthorService) {
         this.authors = authorService.getAuthors();
+    }
+
+    onFavoriteChange($event) {
+        console.log($event);
     }
 }
