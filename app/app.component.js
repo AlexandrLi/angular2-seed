@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./courses.component", "./authors.component"], function(exports_1, context_1) {
+System.register(["angular2/core", "./courses.component", "./authors.component", "./auto-grow.directive", "./voter.component"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "./courses.component", "./authors.component"],
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, courses_component_1, authors_component_1;
+    var core_1, courses_component_1, authors_component_1, auto_grow_directive_1, voter_component_1;
     var AppComponent;
     return {
         setters:[
@@ -22,16 +22,29 @@ System.register(["angular2/core", "./courses.component", "./authors.component"],
             },
             function (authors_component_1_1) {
                 authors_component_1 = authors_component_1_1;
+            },
+            function (auto_grow_directive_1_1) {
+                auto_grow_directive_1 = auto_grow_directive_1_1;
+            },
+            function (voter_component_1_1) {
+                voter_component_1 = voter_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.post = {
+                        voteCount: 7,
+                        myVote: 1
+                    };
                 }
+                AppComponent.prototype.onVote = function ($event) {
+                    console.log($event);
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    <h1>Angular 2 App</h1>\n    <courses></courses>\n    <authors></authors>",
-                        directives: [courses_component_1.CoursesComponent, authors_component_1.AuthorsComponent]
+                        template: "\n            <h1>Angular 2 App</h1><voter [voteCount]=\"post.voteCount\" [myVote]=\"post.myVote\" (vote)=\"onVote($event)\"></voter>\n            <courses></courses>\n            <authors></authors>\n            <input type=\"text\" autoGrow/>\n            ",
+                        directives: [voter_component_1.VoterComponent, courses_component_1.CoursesComponent, authors_component_1.AuthorsComponent, auto_grow_directive_1.AutoGrowDirective]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
