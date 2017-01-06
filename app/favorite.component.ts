@@ -4,11 +4,7 @@ import {EventEmitter} from "angular2/src/facade/async";
 @Component({
     selector: 'favorite',
     templateUrl: 'app/favorite.template.html',
-    styles: [`
-            .glyphicon-star{
-                color: orange;
-            }          
-`]
+    styleUrls: ['app/favorite.styles.css']
 })
 
 export class FavoriteComponent {
