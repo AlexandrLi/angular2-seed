@@ -6,6 +6,8 @@ import {VoterComponent} from "./voter.component";
 import {ZippyComponent} from "./zippy.component";
 import {SubscribeComponent} from "./subscribe-form.component";
 import {SignupFormComponent} from "./signup-form.component";
+import {PassChangeFormComponent} from "./passchange-form.component";
+import {ObservablesComponent} from "./observables.component";
 
 @Component({
     selector: 'my-app',
@@ -14,13 +16,14 @@ import {SignupFormComponent} from "./signup-form.component";
             <subscribe-form></subscribe-form>
             <courses></courses>
             <authors></authors>
-            <input type="text" autoGrow/>
+            <observables></observables>
             <zippy title="Zippy component title">
                 <div>Zippy component body</div>
             </zippy>
             <signup-form></signup-form>
+            <passchange-form></passchange-form>
             `,
-    directives: [VoterComponent, CoursesComponent, AuthorsComponent, AutoGrowDirective, ZippyComponent, SubscribeComponent, SignupFormComponent]
+    directives: [VoterComponent, CoursesComponent, AuthorsComponent, AutoGrowDirective, ZippyComponent, SubscribeComponent, SignupFormComponent, PassChangeFormComponent, ObservablesComponent]
 
 })
 export class AppComponent {
