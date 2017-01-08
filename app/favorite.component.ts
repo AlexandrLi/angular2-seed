@@ -15,7 +15,7 @@ export class FavoriteComponent {
     @Input('is-favorite') isFavorite = false;
     @Output() change = new EventEmitter();
 
-    onClick() {
+    toggle() {
         this.isFavorite = !this.isFavorite;
         this.change.emit({newValue: this.isFavorite})
     }
