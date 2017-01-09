@@ -1,8 +1,8 @@
-import {Http} from "angular2/http";
 import {Injectable} from "angular2/core";
-import {User} from "./user";
-import {Observable} from "rxjs/Rx";
+import {Http} from "angular2/http";
+import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
+import {User} from "./user";
 
 @Injectable()
 export class GithubService {
