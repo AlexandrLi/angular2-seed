@@ -1,58 +1,73 @@
 import {Component, OnInit} from "angular2/core";
-import {CoursesComponent} from "./courses.component";
-import {AuthorsComponent} from "./authors.component";
-import {AutoGrowDirective} from "./auto-grow.directive";
-import {VoterComponent} from "./voter.component";
-import {ZippyComponent} from "./zippy.component";
-import {SubscribeComponent} from "./subscribe-form.component";
-import {SignupFormComponent} from "./signup-form.component";
-import {PassChangeFormComponent} from "./passchange-form.component";
-import {ObservablesComponent} from "./observables.component";
-import {PostService} from "./post.service";
+import {GithubService} from "./github.service";
 import {HTTP_PROVIDERS} from "angular2/http";
+import {User} from "./user";
+import {Observable} from "rxjs/Rx";
+import "rxjs/add/observable/forkJoin";
 
 @Component({
     selector: 'my-app',
     template: `
         <div *ngIf="isLoading">
-            <i class="fa fa-spinner fa-spin fa-3x"></i>
+            <i class="fa fa-spinner fa-spin fa-5x"></i>
         </div>
-            <h1>Angular 2 App</h1><voter [voteCount]="post.voteCount" [myVote]="post.myVote" (vote)="onVote($event)"></voter>
-            <subscribe-form></subscribe-form>
-            <courses></courses>
-            <authors></authors>
-            <observables></observables>
-            <zippy title="Zippy component title">
-                <div>Zippy component body</div>
-            </zippy>
-            <signup-form></signup-form>
-            <passchange-form></passchange-form>
+        <div *ngIf="!isLoading" style="margin: 30px">
+            <div class="media">
+              <div class="media-left">
+                <a href="{{user.html_url}}">
+                  <img class="media-object avatar" src="{{user.avatar_url}}" alt="not found">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading"><b>@{{user.login}}</b></h4>
+              </div>
+            </div>
+            <h3><b>Followers</b></h3>
+            <div *ngFor="#follower of followers" class="media">
+              <div class="media-left">
+                <a href="{{follower.html_url}}">
+                  <img class="media-object avatar" src="{{follower.avatar_url}}" alt="not found">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading"><b>@{{follower.login}}</b></h4>
+              </div>
+            </div>
+        </div>
             `,
-    directives: [VoterComponent, CoursesComponent, AuthorsComponent, AutoGrowDirective, ZippyComponent, SubscribeComponent, SignupFormComponent, PassChangeFormComponent, ObservablesComponent],
-    providers: [PostService, HTTP_PROVIDERS]
+    styles: [`        
+        .avatar{
+			width:	100px;
+			height:	100px;
+			border-radius:	100%;
+        }
+        `],
+    providers: [GithubService, HTTP_PROVIDERS]
 
 })
 export class AppComponent implements OnInit {
     isLoading = true;
-    post = {
-        voteCount: 7,
-        myVote: 1
-    }
+    user: User;
+    followers: User[];
 
-    constructor(private _postService: PostService) {
+    constructor(private _githubService: GithubService) {
     }
 
     ngOnInit() {
-        this._postService.getPosts()
-            .delay(2000)
-            .subscribe(posts => {
+
+        var user = this._githubService.getUser("yalexeyenko");
+        var followers = this._githubService.getUserFollowers("yalexeyenko");
+
+
+        Observable.forkJoin(user, followers)
+            .map(joined => {
+                this.user = joined[0];
+                this.followers = joined[1];
+            })
+            .delay(1000)
+            .subscribe(() => {
                 this.isLoading = false;
-                console.log(posts)
             });
-    }
 
-
-    onVote($event) {
-        console.log($event);
     }
 }
