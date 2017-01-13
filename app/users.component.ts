@@ -1,11 +1,20 @@
 import {Component, OnInit} from "angular2/core";
+import {UsersService} from "./users.service";
+import {ROUTER_DIRECTIVES} from "angular2/router";
 
 @Component({
     selector: 'users',
-    template: '<h2>Users</h2>'
+    templateUrl: 'app/users.component.html',
+    directives: [ROUTER_DIRECTIVES],
+    providers: [UsersService]
 })
 export class UsersComponent implements OnInit {
-    constructor() {
+    users;
+
+    constructor(private _usersService: UsersService) {
+        this._usersService
+            .getUsers()
+            .subscribe(users => this.users = users);
     }
 
     ngOnInit() {
