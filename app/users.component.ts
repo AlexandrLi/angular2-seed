@@ -1,20 +1,25 @@
 import {Component, OnInit} from "angular2/core";
 import {ROUTER_DIRECTIVES} from "angular2/router";
 import {UserService} from "./user.service";
+import {SpinnerComponent} from "./spinner.component";
 
 @Component({
     selector: 'users',
     templateUrl: 'app/users.component.html',
-    directives: [ROUTER_DIRECTIVES],
+    directives: [SpinnerComponent, ROUTER_DIRECTIVES],
     providers: [UserService]
 })
 export class UsersComponent implements OnInit {
-    users;
+    isLoading = true;
+    users = [];
 
     constructor(private _userService: UserService) {
         this._userService
             .getUsers()
-            .subscribe(users => this.users = users);
+            .subscribe(users => {
+                this.isLoading = false;
+                this.users = users
+            });
     }
 
     ngOnInit() {
