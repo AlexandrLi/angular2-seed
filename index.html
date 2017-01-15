@@ -5,7 +5,7 @@
     <title>Angular 2 QuickStart</title>
     <link rel="stylesheet" href="assets/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="assets/stylesheets/custom.css">
-
+    <link rel="stylesheet" href="assets/stylesheets/font-awesome.css">
     <!-- 1. Load libraries -->
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -16,19 +16,19 @@
 
     <!-- 2. Configure SystemJS -->
     <script>
-      System.config({
-        packages: {
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
-      });
-      System.import('app/boot')
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/boot')
             .then(null, console.error.bind(console));
     </script>
 
-  </head>
+</head>
 
 <!-- 3. Display the application -->
 <body>
