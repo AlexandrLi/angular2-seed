@@ -23,6 +23,7 @@ export class PostsComponent {
     }
 
     select(post) {
+        this.comments = null;
         this.currentPost = post;
         this.isLoading = true;
         this._postService.getPostComments(this.currentPost.id)
@@ -47,6 +48,7 @@ export class PostsComponent {
 
     reloadPosts(filter) {
         this.isLoading = true;
+        this.posts = null;
         this.currentPost = null;
         this.loadPosts(filter);
     }
