@@ -7,7 +7,7 @@
 }
 
 .posts li {
-    cursor: default;
+    cursor: pointer;
 }
 
 .posts li:hover {
