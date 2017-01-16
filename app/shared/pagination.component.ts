@@ -5,7 +5,7 @@ import {OnChanges} from "angular2/src/core/linker/interfaces";
 
 @Component({
     selector: 'pagination',
-    templateUrl: 'app/pagination.component.html'
+    templateUrl: 'pagination.component.html'
 })
 export class PaginationComponent implements OnChanges {
     @Input() items = [];

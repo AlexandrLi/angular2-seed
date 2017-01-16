@@ -1,7 +1,7 @@
 import {Component, OnInit} from "angular2/core";
 import {FormBuilder} from "angular2/src/common/forms/form_builder";
 import {Validators} from "angular2/src/common/forms/validators";
-import {BasicValidators} from "./basicValidators";
+import {BasicValidators} from "../shared/basicValidators";
 import {CanDeactivate, Router} from "angular2/router";
 import {ControlGroup} from "angular2/src/common/forms/model";
 import {UserService} from "./user.service";
@@ -10,7 +10,7 @@ import {User} from "./user";
 
 @Component({
     selector: 'user-form',
-    templateUrl: 'app/user-form.component.html',
+    templateUrl: 'user-form.component.html',
     providers: [FormBuilder, UserService]
 })
 export class UserFormComponent implements OnInit, CanDeactivate {
