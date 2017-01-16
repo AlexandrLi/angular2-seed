@@ -46,13 +46,14 @@ export class PostsComponent {
             .subscribe(posts => {
                 this.isLoading = false;
                 this.posts = posts;
-                this.pagedPosts = this.getPostsInPage(1);
+                this.pagedPosts = _.take(this.posts, this.pageSize);
             });
     }
 
     onPageChanged(page) {
         this.currentPost = null;
-        this.pagedPosts = this.getPostsInPage(page);
+        var startIndex = (page - 1) * this.pageSize;
+        this.pagedPosts = _.take(_.rest(this.posts, startIndex), this.pageSize);
     }
 
     reloadPosts(filter) {
@@ -61,13 +62,4 @@ export class PostsComponent {
         this.loadPosts(filter);
     }
 
-    private getPostsInPage(page) {
-        var result = [];
-        var startIndex = (page - 1) * this.pageSize;
-        var endIndex = Math.min(startIndex + this.pageSize, this.posts.length);
-        for (var i = startIndex; i < endIndex; i++) {
-            result.push(this.posts[i]);
-        }
-        return result;
-    }
 }

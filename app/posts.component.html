@@ -1,6 +1,6 @@
 <h2>Posts</h2>
 <div class="col-md-6 row">
-    <select class="form-control" #u (change)="reloadPosts({userId: u.value})">
+    <select class="form-control clickable" #u (change)="reloadPosts({userId: u.value})">
         <option value="">Select a user...</option>
         <option *ngFor="#user of users" value="{{user.id}}">{{user.name}}</option>
     </select>
