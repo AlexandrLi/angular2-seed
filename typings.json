@@ -2,7 +2,8 @@
   "globalDependencies": {
     "core-js": "registry:dt/core-js#0.0.0+20160602141332",
     "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
-    "node": "registry:dt/node#6.0.0+20160807145350"
+    "node": "registry:dt/node#6.0.0+20160807145350",
+    "underscore": "registry:dt/underscore#1.8.3+20161123125004"
   },
   "ambientDependencies": {
     "underscore": "github:DefinitelyTyped/DefinitelyTyped/underscore/underscore.d.ts#f0990e288ac73d593e982995947567aa2643b828"

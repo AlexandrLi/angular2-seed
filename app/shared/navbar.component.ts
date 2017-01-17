@@ -1,21 +1,9 @@
-import {Component, OnInit} from "angular2/core";
-import {ROUTER_DIRECTIVES, Router} from "angular2/router";
+import {Component} from "@angular/core";
 
 @Component({
     selector: 'navbar',
-    templateUrl: 'navbar.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'app/shared/navbar.component.html',
 })
-export class NavbarComponent implements OnInit {
-    constructor(private _router: Router) {
-    }
 
-    isCurrentRoute(route) {
-        var instruction = this._router.generate(route);
-        return this._router.isRouteActive(instruction);
-    }
-
-    ngOnInit() {
-    }
-
+export class NavbarComponent {
 }

@@ -1,14 +1,10 @@
-import {Component} from "angular2/core";
+import {Component} from "@angular/core";
 import {PostService} from "./post.service";
-import {SpinnerComponent} from "../shared/spinner.component";
 import {UserService} from "../users/user.service";
-import {PaginationComponent} from "../shared/pagination.component";
 
 @Component({
     selector: 'posts',
-    templateUrl: "posts.component.html",
-    providers: [PostService, UserService],
-    directives: [SpinnerComponent, PaginationComponent]
+    templateUrl: "app/posts/posts.component.html",
 })
 export class PostsComponent {
     isLoading = true;
@@ -52,7 +48,7 @@ export class PostsComponent {
 
     onPageChanged(page) {
         this.currentPost = null;
-        var startIndex = (page - 1) * this.pageSize;
+        let startIndex = (page - 1) * this.pageSize;
         this.pagedPosts = _.take(_.rest(this.posts, startIndex), this.pageSize);
     }
 

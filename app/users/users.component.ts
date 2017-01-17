@@ -1,15 +1,11 @@
-import {Component, OnInit} from "angular2/core";
-import {ROUTER_DIRECTIVES} from "angular2/router";
+import {Component} from "@angular/core";
 import {UserService} from "./user.service";
-import {SpinnerComponent} from "../shared/spinner.component";
 
 @Component({
     selector: 'users',
-    templateUrl: 'users.component.html',
-    directives: [SpinnerComponent, ROUTER_DIRECTIVES],
-    providers: [UserService]
+    templateUrl: 'app/users/users.component.html',
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
     isLoading = true;
     users = [];
 
@@ -22,17 +18,14 @@ export class UsersComponent implements OnInit {
             });
     }
 
-    ngOnInit() {
-    }
-
     deleteUser(user) {
         if (confirm("Are you sure, you want to delete " + user.name + "?")) {
-            var index = this.users.indexOf(user);
+            let index = this.users.indexOf(user);
             this.users.splice(index, 1);
             this._userService.deleteUser(user.id)
                 .subscribe(null,
                     err => {
-                        alert("Could not delete the user.")
+                        alert("Could not delete the user.");
                         this.users.splice(index, 0, user);
                     })
         }

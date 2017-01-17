@@ -1,5 +1,5 @@
-import {Http} from "angular2/src/http/http";
-import {Injectable} from "angular2/src/core/di/decorators";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
 import "rxjs/add/operator/map";
 
 @Injectable()
@@ -10,7 +10,7 @@ export class PostService {
     }
 
     getPosts(filter?) {
-        var url = this._url;
+        let url = this._url;
         if (filter && filter.userId) {
             url += "?userId=" + filter.userId;
         }

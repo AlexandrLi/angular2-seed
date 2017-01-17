@@ -1,12 +1,10 @@
-import {Component} from "angular2/core";
-import {Input, Output} from "angular2/src/core/metadata";
-import {EventEmitter} from "angular2/src/facade/async";
-import {OnChanges} from "angular2/src/core/linker/interfaces";
+import {Component, OnChanges, Input, Output, EventEmitter} from "@angular/core";
 
 @Component({
     selector: 'pagination',
-    templateUrl: 'pagination.component.html'
+    templateUrl: 'app/shared/pagination.component.html'
 })
+
 export class PaginationComponent implements OnChanges {
     @Input() items = [];
     @Input('page-size') pageSize;
@@ -16,9 +14,9 @@ export class PaginationComponent implements OnChanges {
 
     ngOnChanges() {
         this.currentPage = 1;
-        var pagesCount = Math.ceil(this.items.length / this.pageSize);
+        let pagesCount = Math.ceil(this.items.length / this.pageSize);
         this.pages = [];
-        for (var i = 1; i <= pagesCount; i++) {
+        for (let i = 1; i <= pagesCount; i++) {
             this.pages.push(i);
         }
     }

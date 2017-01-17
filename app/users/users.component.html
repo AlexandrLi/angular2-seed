@@ -1,6 +1,6 @@
 <h2>Users</h2>
 <p>
-    <a class="btn btn-primary" [routerLink]="['NewUser']">Add User</a>
+    <a class="btn btn-primary" routerLink="new">Add User</a>
 </p>
 <spinner [visible]="isLoading"></spinner>
 <table class="table table-bordered">
@@ -13,11 +13,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="#user of users">
+    <tr *ngFor="let user of users">
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>
-            <a [routerLink]="['EditUser',{id:user.id}]">
+            <a [routerLink]="['users',{id:user.id}]">
                 <i class="glyphicon glyphicon-edit"></i>
             </a>
         </td>

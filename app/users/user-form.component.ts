@@ -1,20 +1,16 @@
-import {Component, OnInit} from "angular2/core";
-import {FormBuilder} from "angular2/src/common/forms/form_builder";
-import {Validators} from "angular2/src/common/forms/validators";
+import {Component, OnInit} from "@angular/core";
 import {BasicValidators} from "../shared/basicValidators";
-import {CanDeactivate, Router} from "angular2/router";
-import {ControlGroup} from "angular2/src/common/forms/model";
 import {UserService} from "./user.service";
-import {RouteParams} from "angular2/src/router/instruction";
 import {User} from "./user";
+import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'user-form',
-    templateUrl: 'user-form.component.html',
-    providers: [FormBuilder, UserService]
+    templateUrl: 'app/users/user-form.component.html',
 })
-export class UserFormComponent implements OnInit, CanDeactivate {
-    form: ControlGroup;
+export class UserFormComponent implements OnInit {
+    form: FormGroup;
     title: string;
     user = new User();
     isSaving = false;
@@ -22,7 +18,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     constructor(fb: FormBuilder,
                 private _userService: UserService,
                 private _router: Router,
-                private _routeParams: RouteParams) {
+                private _route: ActivatedRoute) {
         this.form = fb.group({
             name: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, BasicValidators.email])],
@@ -37,7 +33,10 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     }
 
     ngOnInit() {
-        var id = this._routeParams.get('id');
+        let id;
+        this._route.params
+            .subscribe(params => id = params['id'])
+            .unsubscribe();
         this.title = id ? "Edit User" : "Add User";
         if (!id) {
             return;
@@ -46,20 +45,20 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             .subscribe(user => this.user = user,
                 response => {
                     if (response.status == 404) {
-                        this._router.navigate(['NotFound']);
+                        this._router.navigate(['**']);
                     }
                 });
     }
 
-    routerCanDeactivate(next, previous) {
-        if (this.form.dirty && !this.isSaving) {
-            return confirm("You lost all filled data, are you sure?")
-        }
-        return true;
-    }
+    // hasUnsavedChanges() {
+    //     if (this.form.dirty && !this.isSaving) {
+    //         return confirm("You lost all filled data, are you sure?")
+    //     }
+    //     return true;
+    // }
 
     saveUser() {
-        var result;
+        let result;
         if (this.user.id)
             result = this._userService.updateUser(this.user);
         else
@@ -67,7 +66,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
         result.subscribe(result => {
             this.isSaving = true;
-            this._router.navigate(['Users']);
+            this._router.navigate(['users']);
         });
     }
 }

@@ -2,14 +2,14 @@
 <div class="col-md-6 row">
     <select class="form-control clickable" #u (change)="reloadPosts({userId: u.value})">
         <option value="">Select a user...</option>
-        <option *ngFor="#user of users" value="{{user.id}}">{{user.name}}</option>
+        <option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</option>
     </select>
     <spinner [visible]="isLoading && !currentPost"></spinner>
     <pagination [items]="posts"
                 [page-size]="pageSize"
                 (page-changed)="onPageChanged($event)"></pagination>
     <ul class="list-group posts">
-        <li *ngFor="#post of pagedPosts"
+        <li *ngFor="let post of pagedPosts"
             class="list-group-item"
             [class.active]="currentPost==post"
             (click)="select(post)">
@@ -27,7 +27,7 @@
         </div>
         <hr/>
         <spinner [visible]="isLoading"></spinner>
-        <div *ngFor="#comment of comments" class="media">
+        <div *ngFor="let comment of comments" class="media">
             <div class="media-left media-middle">
                 <a href="#">
                     <img class="media-object"
