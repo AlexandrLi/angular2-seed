@@ -8,11 +8,15 @@ import {SharedModule} from "./shared/shared.module";
 import {RoutingModule} from "./app.routing";
 import {HomeComponent} from "./home.component";
 import {NotFoundComponent} from "./not-found.component";
+import {UsersRoutingModule} from "./users/users.routing";
+import {PostsRoutingModule} from "./posts/posts.routing";
 
 @NgModule({
     imports: [
         BrowserModule,
         HttpModule,
+        UsersRoutingModule,
+        PostsRoutingModule,
         RoutingModule,
         UsersModule,
         PostsModule,
