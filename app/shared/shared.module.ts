@@ -5,6 +5,7 @@ import {NavbarComponent} from "./navbar.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
+import {PreventUnsavedChangesGuard} from "./prevent-unsaved-changes-guard.service";
 
 
 @NgModule({
@@ -17,15 +18,13 @@ import {RouterModule} from "@angular/router";
         SpinnerComponent,
         PaginationComponent,
         NavbarComponent,
-        // BasicValidators
     ],
     declarations: [
         SpinnerComponent,
         PaginationComponent,
         NavbarComponent,
-        // BasicValidators
     ],
-    providers: [],
+    providers: [PreventUnsavedChangesGuard],
 })
 export class SharedModule {
 }

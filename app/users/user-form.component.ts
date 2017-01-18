@@ -13,7 +13,6 @@ export class UserFormComponent implements OnInit {
     form: FormGroup;
     title: string;
     user = new User();
-    isSaving = false;
 
     constructor(fb: FormBuilder,
                 private _userService: UserService,
@@ -50,12 +49,12 @@ export class UserFormComponent implements OnInit {
                 });
     }
 
-    // hasUnsavedChanges() {
-    //     if (this.form.dirty && !this.isSaving) {
-    //         return confirm("You lost all filled data, are you sure?")
-    //     }
-    //     return true;
-    // }
+    hasUnsavedChanges() {
+        if (this.form.dirty) {
+            return confirm("You lost all filled data, are you sure?")
+        }
+        return true;
+    }
 
     saveUser() {
         let result;
@@ -64,8 +63,8 @@ export class UserFormComponent implements OnInit {
         else
             result = this._userService.postUser(this.user);
 
-        result.subscribe(result => {
-            this.isSaving = true;
+        result.subscribe(() => {
+            this.form.markAsPristine();
             this._router.navigate(['users']);
         });
     }
